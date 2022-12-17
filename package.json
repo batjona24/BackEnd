@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batjona24/BackEnd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batjona24/BackEnd/issues"
+  },
+  "homepage": "https://github.com/batjona24/BackEnd#readme",
+  "dependencies": {
+    "better-sqlite3": "^8.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "knex": "^2.3.0"
+  }
+}
