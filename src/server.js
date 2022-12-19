@@ -20,7 +20,7 @@ app.post("/api/sign-up", async(request, response) => {
         }
     }
     catch(error){
-        response.status(404);
+        response.status(400);
         response.json(error.message);
       }
 });
@@ -31,7 +31,7 @@ app.post("/api/sign-in", async (request, response) => {
     const {email, password} = request.body;
     const result = await database.raw(`select email, id from users where email='${email}' and password = '${password}'`);
     if (result.length == 0) {
-      response.status(404)
+      response.status(401)
       response.json("Username and password do not match!")
     }
     response.status(200);
@@ -51,7 +51,7 @@ app.put("/api/email/:id", async(request, response) => {
       response.json(result);
     }
     catch(err) {
-        response.status(404);
+        response.status(400);
         response.json(err.message);
     }
 });
@@ -69,7 +69,7 @@ app.put("/api/password/:id", async(request, response) => {
       response.json(result);
     }
     catch(err) {
-        response.status(404);
+        response.status(400);
         response.json(err.message);
     }
 });
