@@ -76,12 +76,19 @@ app.put("/api/password/:id", async(request, response) => {
 
 //Create a new trip route
 app.post("/api/trip", async(request, response) => {
-    const trip = request.body;
-    const insert = await database.raw(`insert into trips (user_id, date, destination, description, days, rating, lat, lon) values ('${trip.user_id}','${trip.date}','${trip.destination}','${trip.description}','${trip.days}','${trip.rating}','${trip.lat}','${trip.lon}')`);
-    const id = insert.lastInsertRowid;
-    const result = await database.raw(`select * from trips where id= ${id}`);
-    response.status(200);
-    response.json(result);
+    const {user_id, date, destination, description, days, rating, lat, lon} = request.body;
+    if ( lat.length > 0  && lon.length > 0 ) {
+      const insert = await database.raw(`insert into trips (user_id, date, destination, description, days, rating, lat, lon) values ('${user_id}','${date}','${destination}','${description}','${days}','${rating}','${lat}','${lon}')`);
+      const id = insert.lastInsertRowid;
+      const result = await database.raw(`select * from trips where id= ${id}`);
+      response.status(200);
+      response.json(result);
+    }
+    else {
+      response.status(400);
+      response.json(`This location does not exist. Please check your destination!`);
+    }
+   
 })
 
 //Get all trips of the logged in user route
