@@ -111,10 +111,16 @@ app.get("/api/trips", async (request, response) => {
 app.put("/api/trip/:id", async (request, response) => {
     const id = request.params.id;
     const {date, destination, description, days, rating, lat, lon} = request.body;
-    await database.raw(`update trips set date = '${date}', destination = '${destination}', description='${description}', days='${days}', rating='${rating}', lat ='${lat}', lon='${lon}', days = '${days}' where id =${id} `);
-    const result = await database.raw(`select * from trips where id = ${id}`)
-    response.status(200)
-    response.json(result)
+    if ( lat.length > 0  && lon.length > 0 ) {
+      await database.raw(`update trips set date = '${date}', destination = '${destination}', description='${description}', days='${days}', rating='${rating}', lat ='${lat}', lon='${lon}', days = '${days}' where id =${id} `);
+      const result = await database.raw(`select * from trips where id = ${id}`)
+      response.status(200)
+      response.json(result)
+    }
+    else {
+      response.status(400);
+      response.json(`This location does not exist. Please check your destination!`);
+    }
   });
 
 //Remove one trip from database route
