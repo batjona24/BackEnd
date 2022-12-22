@@ -9,6 +9,7 @@
 This is an app,when user can create an account,can log in their account.
 After they logged in will see a table with all the trips they have created, can delete and update
 each of the trips they want. Also can update their personal data.
+This is the backend part.
 	
 ## Technologies
 Project is created with:
