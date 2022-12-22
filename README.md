@@ -7,8 +7,8 @@
 
 ## General info
 This is an app,when user can create an account,can log in their account.
-After,they logged in will se a table with all the trips they have created, and can delete and update
-each of the trips they want. They also can update their personal data.
+After they logged in will see a table with all the trips they have created, can delete and update
+each of the trips they want. Also can update their personal data.
 	
 ## Technologies
 Project is created with:
