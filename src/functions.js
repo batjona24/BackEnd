@@ -30,4 +30,19 @@ async function validateEmail (email) {
     }
 }
 
-export {validateEmail, validatePassword};
+async function signIn(email, password) {
+    const emailInDatabase = await database.raw(`select email from users where email='${email}'`);
+    const passInDatabase = await database.raw(`select password from users where password='${password}'`);
+
+    if (emailInDatabase.length == 0) {
+        throw new Error(`There is no account with this email on our website!`);
+    }
+    else if ( emailInDatabase.length != 0 && passInDatabase.length == 0) {
+        throw new Error(`The password is wrong. Please check again!`);
+    }
+    else {
+        return true;
+    }
+}
+
+export {validateEmail, validatePassword, signIn};

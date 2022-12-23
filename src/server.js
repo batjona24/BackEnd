@@ -1,7 +1,7 @@
 import database from "../src/database.js";
 import express from 'express';
 import cors from 'cors';
-import { validatePassword, validateEmail } from "../src/functions.js";
+import { validatePassword, validateEmail,signIn } from "../src/functions.js";
 
 const app = express ();
 app.use(express.json());
@@ -19,9 +19,9 @@ app.post("/api/sign-up", async(request, response) => {
         response.json(result);
         }
     }
-    catch(error){
+    catch(err){
         response.status(400);
-        response.json(error.message);
+        response.json(err.message);
       }
 });
 
@@ -29,13 +29,16 @@ app.post("/api/sign-up", async(request, response) => {
 //Sign-in Route
 app.post("/api/sign-in", async (request, response) => {
     const {email, password} = request.body;
-    const result = await database.raw(`select email, id from users where email='${email}' and password = '${password}'`);
-    if (result.length == 0) {
-      response.status(401)
-      response.json("Username and password do not match!")
+    try {
+      await signIn(email, password);
+      const result = await database.raw(`select email, id from users where email='${email}' and password = '${password}'`);
+      response.status(200);
+      response.json(result[0]);
+    } 
+    catch (err) {
+      response.status(401);
+      response.json(err.message);
     }
-    response.status(200);
-    response.json(result[0]);
 });
 
 
