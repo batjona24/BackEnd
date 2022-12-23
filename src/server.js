@@ -80,7 +80,7 @@ app.put("/api/password/:id", async(request, response) => {
 //Create a new trip route
 app.post("/api/trip", async(request, response) => {
     const {user_id, date, destination, description, days, rating, lat, lon} = request.body;
-    const destinationFirstLetterUpperCase = destination [ 0 ].toUpperCase()+destination.slice( 1 ).toLowerCase()
+    const destinationFirstLetterUpperCase = destination [ 0 ].toUpperCase()+destination.slice( 1 ).toLowerCase();
     if ( lat.length > 0  && lon.length > 0 ) {
       const insert = await database.raw(`insert into trips (user_id, date, destination, description, days, rating, lat, lon) values ('${user_id}','${date}','${destinationFirstLetterUpperCase}','${description}','${days}','${rating}','${lat}','${lon}')`);
       const id = insert.lastInsertRowid;
@@ -115,7 +115,7 @@ app.get("/api/trips", async (request, response) => {
 app.put("/api/trip/:id", async (request, response) => {
     const id = request.params.id;
     const {date, destination, description, days, rating, lat, lon} = request.body;
-    const destinationFirstLetterUpperCase = destination[ 0 ].toUpperCase()+destination.slice( 1 ).toLowerCase()
+    const destinationFirstLetterUpperCase = destination[ 0 ].toUpperCase()+destination.slice( 1 ).toLowerCase();
     if ( lat.length > 0  && lon.length > 0 ) {
       await database.raw(`update trips set date = '${date}', destination = '${destinationFirstLetterUpperCase}', description='${description}', days='${days}', rating='${rating}', lat ='${lat}', lon='${lon}', days = '${days}' where id =${id} `);
       const result = await database.raw(`select * from trips where id = ${id}`)
@@ -131,10 +131,8 @@ app.put("/api/trip/:id", async (request, response) => {
 //Remove one trip from database route
 app.delete("/api/trip/:id", async (request, response) => {
     const id = request.params.id;
-    //await database.raw(`delete from trips`);
     await database.raw(`delete from trips where id=${id}`);
     const result =  await database.raw(`select * from trips`);
-  
     response.status(200);
     response.json(result);
   });
