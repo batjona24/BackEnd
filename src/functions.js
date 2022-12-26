@@ -7,7 +7,7 @@ function validatePassword (password) {
         throw new Error("The password needs to be between 5 and 20 characters");
     }
     else if (!reg_expression.test(password)) {
-        throw new Error("The password needs to have at least one number and one special character from '!','?',':','.'");
+        throw new Error("The password needs to have at least one number and one special character from ( ! ? : .)");
     }
     else {
         return true;

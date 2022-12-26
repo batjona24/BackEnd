@@ -102,7 +102,13 @@ app.get("/api/:user_id/trips", async (request, response) => {
     response.status(200);
     response.json(result);
   });
-
+ // Get the trip with the specific id_trip to be shown in the updated form
+  app.get("/api/:trip_id/trip", async (request, response) => {
+    const trip_id = request.params.trip_id;
+    const result = await database.raw(`select * from trips where id = ${trip_id}`);
+    response.status(200);
+    response.json(result);
+  });
   //API to get all trips
 app.get("/api/trips", async (request, response) => {
     const result = await database.raw(`select * from trips`);
