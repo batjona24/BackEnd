@@ -32,12 +32,12 @@ async function validateEmail (email) {
 
 async function signIn(email, password) {
     const emailInDatabase = await database.raw(`select email from users where email='${email}'`);
-    const passInDatabase = await database.raw(`select password from users where password='${password}'`);
+    const passwordInDatabase = await database.raw(`select password from users where password='${password}' and email='${email}'`);
 
     if (emailInDatabase.length == 0) {
         throw new Error(`There is no account with this email on our website!`);
     }
-    else if ( emailInDatabase.length != 0 && passInDatabase.length == 0) {
+    else if ( emailInDatabase.length != 0 && passwordInDatabase.length == 0) {
         throw new Error(`The password is wrong. Please check again!`);
     }
     else {
