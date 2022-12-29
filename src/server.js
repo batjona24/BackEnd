@@ -7,7 +7,6 @@ const app = express ();
 app.use(express.json());
 app.use(cors());
 
-
 //Sign up Route
 app.post("/api/sign-up", async(request, response) => {
     const {email, password} = request.body;
@@ -25,7 +24,6 @@ app.post("/api/sign-up", async(request, response) => {
       }
 });
 
-
 //Sign-in Route
 app.post("/api/sign-in", async (request, response) => {
     const {email, password} = request.body;
@@ -40,7 +38,6 @@ app.post("/api/sign-in", async (request, response) => {
       response.json(err.message);
     }
 });
-
 
 //Update email route
 app.put("/api/email/:id", async(request, response) => {
@@ -58,7 +55,6 @@ app.put("/api/email/:id", async(request, response) => {
         response.json(err.message);
     }
 });
-
 
 //Update password route
 app.put("/api/password/:id", async(request, response) => {
@@ -92,7 +88,6 @@ app.post("/api/trip", async(request, response) => {
       response.status(400);
       response.json(`This location does not exist. Please check your destination!`);
     }
-   
 })
 
 //Get all trips of the logged in user route
@@ -102,6 +97,7 @@ app.get("/api/:user_id/trips", async (request, response) => {
     response.status(200);
     response.json(result);
   });
+
  // Get the trip with the specific id_trip to be shown in the updated form
   app.get("/api/:trip_id/trip", async (request, response) => {
     const trip_id = request.params.trip_id;
@@ -109,13 +105,6 @@ app.get("/api/:user_id/trips", async (request, response) => {
     response.status(200);
     response.json(result);
   });
-  //API to get all trips
-app.get("/api/trips", async (request, response) => {
-    const result = await database.raw(`select * from trips`);
-    response.status(200);
-    response.json(result);
-  });
-
 
 //Update trip data route
 app.put("/api/trip/:id", async (request, response) => {

@@ -12,7 +12,6 @@ function validatePassword (password) {
     else {
         return true;
     }
-    
 }
 
 async function validateEmail (email) {
