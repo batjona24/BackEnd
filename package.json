@@ -5,7 +5,8 @@
   "main": "./src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch ./src/server.js"
+    "dev": "node --watch ./src/server.js",
+    "start": "node server"
   },
   "repository": {
     "type": "git",
